@@ -1,4 +1,4 @@
-name: 'Build LibreTV image'
+name: 'Build Ntv image'
 
 on:
   push:
@@ -8,10 +8,10 @@ on:
 
 jobs:
   build:
-    name: 'Build LibreTV image'
+    name: 'Build Ntv image'
     runs-on: ubuntu-latest
     # Modified to run on both repositories
-    if: github.repository == 'LibreSpark/LibreTV' || github.repository == 'bestZwei/libretv'
+    if: github.repository == 'LibreSpark/Ntv' || github.repository == 'bestZwei/Ntv'
     env:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
 
@@ -24,10 +24,10 @@ jobs:
       - name: 'Set Docker image tag based on repository'
         id: set-tag
         run: |
-          if [ "${{ github.repository }}" = "LibreSpark/LibreTV" ]; then
-            echo "IMAGE_TAG=libretv:latest" >> $GITHUB_OUTPUT
+          if [ "${{ github.repository }}" = "LibreSpark/Ntv" ]; then
+            echo "IMAGE_TAG=Ntv:latest" >> $GITHUB_OUTPUT
           else
-            echo "IMAGE_TAG=libretv-beta:latest" >> $GITHUB_OUTPUT
+            echo "IMAGE_TAG=Ntv-beta:latest" >> $GITHUB_OUTPUT
           fi
 
       - name: 'Set up Docker QEMU'
@@ -42,7 +42,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: 'Build and push LibreTV image'
+      - name: 'Build and push Ntv image'
         uses: docker/build-push-action@v6.14.0
         with:
           context: .
